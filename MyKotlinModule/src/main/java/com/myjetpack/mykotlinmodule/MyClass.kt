@@ -1,15 +1,20 @@
 package com.myjetpack.mykotlinmodule
 
-fun main(){
-    calculate(700, 1000)
+fun main() {
+    calculate(1, 100, 6, "is multiple of")
 }
 
-fun calculate(a: Int, b: Int) {
-  for (i in a..b){
-      if (i%2 ==0){
-          println("$i is divisible by 2")
-      }else{
-          println("-----")
-      }
-  }
+fun calculate(
+    start: Int,
+    end: Int,
+    multipleOf: Int,
+    message: String
+) {
+    for (i in start..end) {
+        if (i % multipleOf == 0) {
+            println("$i $message $multipleOf")
+        } else {
+            println("-----")
+        }
+    }
 }
