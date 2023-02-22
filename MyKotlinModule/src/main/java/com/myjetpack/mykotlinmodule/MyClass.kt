@@ -1,12 +1,14 @@
 package com.myjetpack.mykotlinmodule
 
 fun main() {
-    calculate(1, 100, 6, "is multiple of")
+    calculate(1, 50, 6, "is multiple of")
+    calculate(message = "hey here is the match", multipleOf = 4)
 }
 
 fun calculate(
-    start: Int,
-    end: Int,
+    start: Int=10,//(named argument) default value  and it can be
+    // overrided like first calling method in the above
+    end: Int=200,//(named argument) default value
     multipleOf: Int,
     message: String
 ) {
