@@ -1,22 +1,14 @@
 package com.myjetpack.mykotlinmodule
 
 fun main() {
-    calculate(1, 50, 6, "is multiple of")
-    calculate(message = "hey here is the match", multipleOf = 4)
+    println(add(5,7))
+    println(catAge(7))
 }
+// Function definition Using Lambda expression
+// val lambda name:(Parameter Type) -> return type = { parameterList -> functionBody}
+val add:(Int, Int) ->Int = { a,b -> a+b}
 
-fun calculate(
-    start: Int=10,//(named argument) default value  and it can be
-    // overrided like first calling method in the above
-    end: Int=200,//(named argument) default value
-    multipleOf: Int,
-    message: String
-) {
-    for (i in start..end) {
-        if (i % multipleOf == 0) {
-            println("$i $message $multipleOf")
-        } else {
-            println("-----")
-        }
-    }
+//We can use it if using only one parameter like below
+val catAge: (Int) -> Int = {
+        it -> it * 7
 }
