@@ -1,14 +1,19 @@
 package com.myjetpack.mykotlinmodule
 fun main() {
-    // If the last parameter is a function then don't need to add the function as a parameter
-    //Curly braces in trailing lambda is always bolder compare to the normal one
-    enhancedMessage("Hello"){
-        println(it)
-        12
-    }
-}
 
-//Trailing lambda where the last parameter needs to be the function
-fun enhancedMessage(message: String, funAsParameter : (String) -> Int){
-    println("$message ${funAsParameter("Hi ")}" )
+    val listOfName = listOf("Anup","Riz")
+    listOfName.forEach {
+        println("Name : $it")
+    }
+
+    val mutableList = mutableListOf(12, 16, 22, 40)
+    mutableList.add(2)
+    mutableList.forEach{
+        println("Integer : $it")
+    }
+
+    mutableList.removeAt(2)
+    mutableList.forEach{
+        println("New Integer list : $it")
+    }
 }
