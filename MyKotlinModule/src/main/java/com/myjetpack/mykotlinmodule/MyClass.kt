@@ -1,10 +1,15 @@
 package com.myjetpack.mykotlinmodule
 fun main() {
- val myListOfNames = listOf("Ram", "Shyam", "Jodu", "Modhu", "Manasi")
-  val found = myListOfNames.filter {
-       // it=="Modhu"
-      //it.length > 2
-      it.startsWith("m", ignoreCase = true) && it.endsWith("i", ignoreCase = true)
+ val car= Car()
+    car.color="Blue"
+    println("Car color is ${car.color} and model is ${car.model}")
+}
+
+class Car{
+    var color: String = "Red"//Can be changed later like above
+    val model: String="XMDB"
+
+    fun drive(){
+        println("Driving the car....")
     }
-    println(found)
 }
