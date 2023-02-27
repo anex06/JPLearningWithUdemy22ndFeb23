@@ -1,11 +1,19 @@
 package com.myjetpack.mykotlinmodule
 
 fun main() {
- println("Hello dear " .append("friend"))
- println("Indiana".removeFirstLastChar())
+ val person1 = Person(
+ "Anup sarkar",
+  32,
+"Kolkata"
+ )
+ val person2 = Person("Phoring", 23, "Birpur")
+
+ val listOfPeople = listOf(person1, person2)
+ listOfPeople.forEach { person->
+  println(person.age)
+ }
+
 }
 
-//Extension function
-fun String.append(toAppend: String): String = this.plus(toAppend)
-
-fun String.removeFirstLastChar(): String = this.substring(1, this.length - 1)
+//Data class is a simple class which is used to hold data/state and contains standard functionality.
+data class Person(val name: String, val age: Int, val address: String)
