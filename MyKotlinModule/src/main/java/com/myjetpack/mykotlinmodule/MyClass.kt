@@ -1,17 +1,11 @@
 package com.myjetpack.mykotlinmodule
 
 fun main() {
-    val button = Button(label = "My button")
-    button.onClick("Hello there")
+ println("Hello dear " .append("friend"))
+ println("Indiana".removeFirstLastChar())
 }
 
-class Button(val label: String) : ClickEvent{
-    override fun onClick(message: String) {
-        println("Clicked by $label and here is the message $message")
-    }
+//Extension function
+fun String.append(toAppend: String): String = this.plus(toAppend)
 
-}
-//Interface (will be implemented at class level) and class can implement it
-interface ClickEvent{
-    fun onClick(message: String)
-}
+fun String.removeFirstLastChar(): String = this.substring(1, this.length - 1)
