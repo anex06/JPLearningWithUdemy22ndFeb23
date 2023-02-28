@@ -1,19 +1,28 @@
 package com.myjetpack.mykotlinmodule
 
 fun main() {
- val person1 = Person(
- "Anup sarkar",
-  32,
-"Kolkata"
- )
- val person2 = Person("Phoring", 23, "Birpur")
 
- val listOfPeople = listOf(person1, person2)
- listOfPeople.forEach { person->
-  println(person.age)
+ val listOfItems = listOf("Ram", "Sita", "Laxman")
+ val listOfNumbers = listOf(1,2,3,4,5,6)
+ val finder = Finder(listOfItems)
+ finder.findItem(""){
+  println("Found string $it")
  }
-
+ val finderInt = Finder(listOfNumbers)
+ finderInt.findItem(30){
+  println("Found integer $it")
+ }
 }
 
-//Data class is a simple class which is used to hold data/state and contains standard functionality.
-data class Person(val name: String, val age: Int, val address: String)
+//Generic class "T" is the type
+class Finder<T>(private val list: List<T>){
+ fun findItem(element: T, foundItem:(element: T?) -> Unit){
+  val itemFoundInList = list.filter {
+   it == element
+  }
+  if (itemFoundInList.isEmpty())
+   foundItem(null)
+  else
+   foundItem(itemFoundInList.first())
+ }
+}
