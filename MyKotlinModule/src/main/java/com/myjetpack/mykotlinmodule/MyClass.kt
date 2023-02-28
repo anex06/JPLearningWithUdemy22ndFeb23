@@ -1,5 +1,4 @@
 package com.myjetpack.mykotlinmodule
-
 fun main() {
  Repository.startFetch()
  getResult(Repository.getCurrentState())
@@ -9,33 +8,50 @@ fun main() {
 
 fun getResult(result: Result){
  when(result){
-
-  Result.SUCCESS -> println("Success!")
-  Result.FAILURE -> println("Failure!")
-  Result.ERROR -> println("Error!")
-  Result.IDLE -> println("Idle!")
-  Result.LOADING -> println("Loading..")
+  is Error -> {
+   println(result.exception.toString())
+  }
+  is Success -> {
+   println(result.dataFetched?: "Ensure you start the fetch function first")
+  }
+  is Loading -> {
+   println("Loading..")
+  }
+  is NotLoading -> {
+   println("Idle")
+  }
+  else -> {
+   println("Not available")
+  }
  }
 }
 
-//object keyword to create Singleton class. We dont need to create an object to access it
+
+abstract class Result
+//if we want to pass data as param then use data class
+data class Success(val dataFetched: String?): Result()
+data class Error(val exception: Exception): Result()
+//if do not want to pass the data then use object
+object NotLoading: Result()
+object Loading: Result()
+
+//object keyword to create Singleton class. We don't need to create an object to access it
 object Repository{
- private var loadState: Result = Result.FAILURE
+ private var loadState: Result = NotLoading
  private var dataFetched : String? = null
 
  fun startFetch(){
-  loadState = Result.LOADING
+  loadState = Loading
   dataFetched = "data"
  }
 
-
  fun finishedFetch(){
-  loadState = Result.SUCCESS
+  loadState = Success(dataFetched)
   dataFetched = null
  }
 
  fun error(){
-  loadState = Result.ERROR
+  loadState = Error(Exception("Exception"))
  }
 
  fun getCurrentState() : Result{
@@ -43,10 +59,10 @@ object Repository{
  }
 }
 
-enum class Result{
+/*enum class Result{
  SUCCESS,
  FAILURE,
  ERROR,
  IDLE,
  LOADING
-}
+}*/
