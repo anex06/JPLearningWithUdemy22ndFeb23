@@ -1,28 +1,52 @@
 package com.myjetpack.mykotlinmodule
 
 fun main() {
+ Repository.startFetch()
+ getResult(Repository.getCurrentState())
+ Repository.finishedFetch()
+ getResult(Repository.getCurrentState())
+}
 
- val listOfItems = listOf("Ram", "Sita", "Laxman")
- val listOfNumbers = listOf(1,2,3,4,5,6)
- val finder = Finder(listOfItems)
- finder.findItem(""){
-  println("Found string $it")
- }
- val finderInt = Finder(listOfNumbers)
- finderInt.findItem(30){
-  println("Found integer $it")
+fun getResult(result: Result){
+ when(result){
+
+  Result.SUCCESS -> println("Success!")
+  Result.FAILURE -> println("Failure!")
+  Result.ERROR -> println("Error!")
+  Result.IDLE -> println("Idle!")
+  Result.LOADING -> println("Loading..")
  }
 }
 
-//Generic class "T" is the type
-class Finder<T>(private val list: List<T>){
- fun findItem(element: T, foundItem:(element: T?) -> Unit){
-  val itemFoundInList = list.filter {
-   it == element
-  }
-  if (itemFoundInList.isEmpty())
-   foundItem(null)
-  else
-   foundItem(itemFoundInList.first())
+//object keyword to create Singleton class. We dont need to create an object to access it
+object Repository{
+ private var loadState: Result = Result.FAILURE
+ private var dataFetched : String? = null
+
+ fun startFetch(){
+  loadState = Result.LOADING
+  dataFetched = "data"
  }
+
+
+ fun finishedFetch(){
+  loadState = Result.SUCCESS
+  dataFetched = null
+ }
+
+ fun error(){
+  loadState = Result.ERROR
+ }
+
+ fun getCurrentState() : Result{
+  return loadState
+ }
+}
+
+enum class Result{
+ SUCCESS,
+ FAILURE,
+ ERROR,
+ IDLE,
+ LOADING
 }
